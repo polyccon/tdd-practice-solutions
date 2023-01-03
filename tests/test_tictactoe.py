@@ -8,3 +8,12 @@ def test_x_goes_first():
     current_player = tictactoe.get_current_player()
 
     assert current_player == Players.X
+
+
+def test_o_goes_second():
+    tictactoe = Tictactoe()
+    
+    tictactoe.play()
+    current_player = tictactoe.get_current_player()
+
+    assert current_player == Players.O
