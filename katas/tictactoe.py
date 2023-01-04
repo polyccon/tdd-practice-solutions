@@ -13,5 +13,12 @@ class Tictactoe:
     def get_current_player(self):
         return self.current_player
 
+    def change_player(self):
+        if self.current_player == Players.X:
+            self.current_player = Players.O
+        else:
+            self.current_player = Players.X
+
     def play(self):
-        self.current_player = Players.O
+        self.change_player()
+        return self.current_player
