@@ -50,7 +50,6 @@ class Tictactoe:
     def play(self, position):
         self.board.mark_at(position, self.current_player)
         self.change_player()
-        return self.current_player
 
     def get_winner(self):
         return self.board.get_winner()
