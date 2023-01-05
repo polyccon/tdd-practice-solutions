@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Position(Enum):
+class Tiles(Enum):
     TOP_LEFT = 1
     TOP_MIDDLE = 2
     TOP_RIGHT = 3
@@ -22,7 +22,7 @@ class Players(Enum):
 class Tictactoe:
     def __init__(self) -> None:
        self.current_player = Players.X
-       self.positions = {}
+       self.tiles = {}
 
     def get_current_player(self):
         return self.current_player
@@ -39,10 +39,10 @@ class Tictactoe:
         return self.current_player
 
     def mark_at(self, position):
-        self.positions[position] = self.current_player
+        self.tiles[position] = self.current_player
 
     def get_winner(self):
-        if self.positions.get(Position.TOP_LEFT) == self.positions.get(
-            Position.TOP_MIDDLE
-        ) and self.positions.get(Position.TOP_MIDDLE) == self.positions.get(Position.TOP_RIGHT):
-            return self.positions.get(Position.TOP_LEFT)
+        if self.tiles.get(Tiles.TOP_LEFT) == self.tiles.get(
+            Tiles.TOP_MIDDLE
+        ) and self.tiles.get(Tiles.TOP_MIDDLE) == self.tiles.get(Tiles.TOP_RIGHT):
+            return self.tiles.get(Tiles.TOP_LEFT)
