@@ -41,3 +41,17 @@ def test_3_x_in_top_row_gives_x_as_winner(tictactoe):
     winner = tictactoe.get_winner()
 
     assert winner == Players.X
+
+
+def  test_3_o_in_top_row_gives_o_as_winner(tictactoe):
+
+    tictactoe.play(Position.BOTTOM_RIGHT)
+    tictactoe.play(Position.TOP_RIGHT)
+    tictactoe.play(Position.BOTTOM_LEFT)
+    tictactoe.play(Position.TOP_LEFT)
+    tictactoe.play(Position.MIDDLE_MIDDLE)
+    tictactoe.play(Position.TOP_MIDDLE)
+    
+    winner = tictactoe.get_winner()
+
+    assert winner == Players.O

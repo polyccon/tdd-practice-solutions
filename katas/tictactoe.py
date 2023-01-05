@@ -14,13 +14,15 @@ class Position(Enum):
 
 
 class Players(Enum):
-    X = 0
-    O = 1
+    X = "X"
+    O = "O"
+    DRAW = "DRAW"
 
-    
+
 class Tictactoe:
     def __init__(self) -> None:
        self.current_player = Players.X
+       self.positions = {}
 
     def get_current_player(self):
         return self.current_player
@@ -32,8 +34,15 @@ class Tictactoe:
         self.current_player = Players.X
 
     def play(self, position):
+        self.mark_at(position)
         self.change_player()
         return self.current_player
 
+    def mark_at(self, position):
+        self.positions[position] = self.current_player
+
     def get_winner(self):
-        return Players.X
+        if self.positions.get(Position.TOP_LEFT) == self.positions.get(
+            Position.TOP_MIDDLE
+        ) and self.positions.get(Position.TOP_MIDDLE) == self.positions.get(Position.TOP_RIGHT):
+            return self.positions.get(Position.TOP_LEFT)
