@@ -23,8 +23,8 @@ class Board:
     def __init__(self) -> None:
         self.tiles = {}
 
-    def mark_at(self, position, current_player):
-        self.tiles[position] = current_player
+    def mark_at(self, tile, current_player):
+        self.tiles[tile] = current_player
 
     def get_winner(self):
         if self.tiles.get(Tiles.TOP_LEFT) == self.tiles.get(
