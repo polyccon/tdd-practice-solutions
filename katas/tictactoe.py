@@ -19,10 +19,24 @@ class Players(Enum):
     DRAW = "DRAW"
 
 
+class Board:
+    def __init__(self) -> None:
+        self.tiles = {}
+
+    def mark_at(self, position, current_player):
+        self.tiles[position] = current_player
+
+    def get_winner(self):
+        if self.tiles.get(Tiles.TOP_LEFT) == self.tiles.get(
+            Tiles.TOP_MIDDLE
+        ) and self.tiles.get(Tiles.TOP_MIDDLE) == self.tiles.get(Tiles.TOP_RIGHT):
+            return self.tiles.get(Tiles.TOP_LEFT)
+
+
 class Tictactoe:
     def __init__(self) -> None:
        self.current_player = Players.X
-       self.tiles = {}
+       self.board = Board()
 
     def get_current_player(self):
         return self.current_player
@@ -34,15 +48,9 @@ class Tictactoe:
         self.current_player = Players.X
 
     def play(self, position):
-        self.mark_at(position)
+        self.board.mark_at(position, self.current_player)
         self.change_player()
         return self.current_player
 
-    def mark_at(self, position):
-        self.tiles[position] = self.current_player
-
     def get_winner(self):
-        if self.tiles.get(Tiles.TOP_LEFT) == self.tiles.get(
-            Tiles.TOP_MIDDLE
-        ) and self.tiles.get(Tiles.TOP_MIDDLE) == self.tiles.get(Tiles.TOP_RIGHT):
-            return self.tiles.get(Tiles.TOP_LEFT)
+        return self.board.get_winner()
