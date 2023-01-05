@@ -41,7 +41,7 @@ class Tictactoe:
     def get_current_player(self):
         return self.current_player
 
-    def change_player(self):
+    def __alternate_player(self):
         if self.current_player == Players.X:
             self.current_player = Players.O
             return
@@ -49,7 +49,7 @@ class Tictactoe:
 
     def play(self, position):
         self.board.mark_at(position, self.current_player)
-        self.change_player()
+        self.__alternate_player()
 
     def get_winner(self):
         return self.board.get_winner()
