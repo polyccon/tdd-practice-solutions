@@ -20,10 +20,9 @@ class Game():
         pass  
 
     def next_generation(self):
+        one_dead_cell = [CellState.DEAD]
         if len(self.board) == 1:
-            return [CellState.DEAD]
-        if len(self.board) == 3:
-            return [CellState.DEAD, CellState.ALIVE, CellState.DEAD]
-        if len(self.board) == 4:
-            return [CellState.DEAD, CellState.ALIVE, CellState.ALIVE, CellState.DEAD]
+            return one_dead_cell
+        alive_cells = [CellState.ALIVE for cell in enumerate(self.board[0:-2])]
+        return one_dead_cell + alive_cells + one_dead_cell
 

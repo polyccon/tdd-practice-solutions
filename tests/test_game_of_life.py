@@ -12,6 +12,16 @@ def test_single_cell_dies():
     assert game.next_generation() == [CellState.DEAD]
 
 
+def test_two_cells_die():
+
+    board = [CellState.ALIVE, CellState.ALIVE]
+    game = Game(board)
+
+    game.play()
+
+    assert game.next_generation() == [CellState.DEAD, CellState.DEAD]
+
+
 def test_cell_with_two_neighbours_lives():
 
     board = [CellState.ALIVE, CellState.ALIVE, CellState.ALIVE]
