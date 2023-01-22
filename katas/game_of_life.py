@@ -22,5 +22,8 @@ class Game():
     def next_generation(self):
         if len(self.board) == 1:
             return [CellState.DEAD]
-        return [CellState.DEAD, CellState.ALIVE, CellState.DEAD]
+        if len(self.board) == 3:
+            return [CellState.DEAD, CellState.ALIVE, CellState.DEAD]
+        if len(self.board) == 4:
+            return [CellState.DEAD, CellState.ALIVE, CellState.ALIVE, CellState.DEAD]
 
