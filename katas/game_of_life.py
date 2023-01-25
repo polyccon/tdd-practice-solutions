@@ -6,11 +6,29 @@ class CellState(Enum):
     DEAD = 0
 
 
+class Position:
+    def __init__(self, x, y) -> None:
+        self.x = x
+        self.y = y
+        
+    def __repr__(self):
+        return str(self.x) + "-" + str(self.y)
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+
 class Cell:
     def __init__(self, cell_state, position):
         self.cell_state = cell_state
         self.position = position
-    
+
+    def __eq__(self, other):
+        return (
+           self.cell_state == other.cell_state
+           and self.position == other.position
+            )
+
 
 class Game():
     def __init__(self, board) -> None:
@@ -20,9 +38,8 @@ class Game():
         pass  
 
     def next_generation(self):
-        one_dead_cell = [CellState.DEAD]
-        if len(self.board) == 1:
-            return one_dead_cell
-        alive_cells = [CellState.ALIVE for cell in enumerate(self.board[0:-2])]
-        return one_dead_cell + alive_cells + one_dead_cell
-
+        output = []
+        for index, cell in enumerate(self.board):
+            cell_state = CellState.DEAD if index in [0, len(self.board)-1] else CellState.ALIVE
+            output.append(Cell(cell_state, Position(cell.position.x, cell.position.y)))
+        return output
