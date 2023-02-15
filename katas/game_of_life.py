@@ -28,16 +28,15 @@ class Board:
     def get_alive_neighbours_count(self, cell):
         alive_neighbours = 0
         for _cell in self.cells:
-            if cell.is_neighbour(_cell):
+            if _cell.is_neighbour(cell) and _cell.is_alive():
                 alive_neighbours += 1
         return alive_neighbours
 
     def evolve_cell_state(self):
         evolved_cells = []
-        for cell in cells:
+        for cell in self.cells:
             alive_neighbours = self.get_alive_neighbours_count(cell)
-            cell.evolve_cell_state(alive_neighbours)
-            evolved_cells.append(cell)
+            evolved_cells.append(cell.evolve(alive_neighbours))
         return evolved_cells
 
 
@@ -51,28 +50,35 @@ class Cell:
         return (
            self.cell_state == other.cell_state
            and self.position == other.position
-            )
+        )
+
+    def is_alive(self):
+        return self.cell_state == CellState.ALIVE
 
     def is_neighbour(self, other):
         return self.position._is_neighbour(other.position)
 
-    def evolve_cell_state(self, alive_neighbours_count):
+    def get_cell_state(self):
+        return self.cell_state
+
+    def evolve(self, alive_neighbours_count):
         if alive_neighbours_count > 1:
-            self.cell_state = CellState.ALIVE
-            return
-        self.cell_state = CellState.DEAD
+            return Cell(CellState.ALIVE, (self.position.x, self.position.y))
+        return Cell(CellState.DEAD, (self.position.x, self.position.y))
 
 
 class Game():
     def __init__(self, board) -> None:
         self.board = Board(board)
 
-
     def play(self):
-        for cell in self.board.cells:
-            alive_neighbours_count = self.board.get_alive_neighbours_count(cell)
-            cell.evolve_cell_state(alive_neighbours_count)
-        return self.board.cells
+        return self.board.evolve_cell_state()
+        # evolved_cells = []
+        # for cell in self.board.cells:
+        #     alive_neighbours_count = self.board.get_alive_neighbours_count(cell)
+        #     cell.evolve(alive_neighbours_count)
+        #     evolved_cells.append(cell)
+        # return evolved_cells
 
     def next_generation(self):
         return self.play()
