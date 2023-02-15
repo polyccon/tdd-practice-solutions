@@ -7,7 +7,8 @@ class CellState(Enum):
 
 
 class Position:
-    def __init__(self, x, y) -> None:
+    def __init__(self, position) -> None:
+        x, y = position
         self.x = x
         self.y = y
 
@@ -41,10 +42,9 @@ class Board:
 
 
 class Cell:
-    def __init__(self, cell_state, position):
-        x, y = position
+    def __init__(self, cell_state, position)-> None:
         self.cell_state = cell_state
-        self.position = Position(x, y)
+        self.position = position
 
     def __eq__(self, other):
         return (
@@ -56,29 +56,23 @@ class Cell:
         return self.cell_state == CellState.ALIVE
 
     def is_neighbour(self, other):
-        return self.position._is_neighbour(other.position)
+        return Position(self.position)._is_neighbour(Position(other.position))
 
     def get_cell_state(self):
         return self.cell_state
 
     def evolve(self, alive_neighbours_count):
         if alive_neighbours_count > 1:
-            return Cell(CellState.ALIVE, (self.position.x, self.position.y))
-        return Cell(CellState.DEAD, (self.position.x, self.position.y))
+            return Cell(CellState.ALIVE, self.position)
+        return Cell(CellState.DEAD, self.position)
 
 
-class Game():
+class Game:
     def __init__(self, board) -> None:
         self.board = Board(board)
 
     def play(self):
         return self.board.evolve_cell_state()
-        # evolved_cells = []
-        # for cell in self.board.cells:
-        #     alive_neighbours_count = self.board.get_alive_neighbours_count(cell)
-        #     cell.evolve(alive_neighbours_count)
-        #     evolved_cells.append(cell)
-        # return evolved_cells
 
     def next_generation(self):
         return self.play()
