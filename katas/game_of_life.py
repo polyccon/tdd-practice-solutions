@@ -43,8 +43,9 @@ class Board:
 
 class Cell:
     def __init__(self, cell_state, position):
+        x, y = position
         self.cell_state = cell_state
-        self.position = position
+        self.position = Position(x, y)
 
     def __eq__(self, other):
         return (
