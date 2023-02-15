@@ -68,3 +68,24 @@ def test_four_cells_in_a_row_middle_ones_live():
     output = game.next_generation()
 
     assert output == expected_output
+
+
+def test_four_cells_in_a_square_all_live():
+
+    board = [
+        Cell(CellState.ALIVE, (0, 0)),
+        Cell(CellState.ALIVE, (0, 1)),
+        Cell(CellState.ALIVE, (1, 0)),
+        Cell(CellState.ALIVE, (1, 1))
+    ]
+    expected_output = [
+        Cell(CellState.ALIVE, (0, 0)),
+        Cell(CellState.ALIVE, (0, 1)),
+        Cell(CellState.ALIVE, (1, 0)),
+        Cell(CellState.ALIVE, (1, 1))
+    ]
+    game = Game(board)
+
+    output = game.next_generation()
+
+    assert output == expected_output
