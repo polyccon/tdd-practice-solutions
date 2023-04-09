@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from enum import Enum
 
 
@@ -7,22 +6,40 @@ class CellState(Enum):
     ALIVE = 1
 
 
-@dataclass
 class Cell:
     def __init__(self, cell_state, position) -> None:
         self.cell_state = cell_state
         self.position = position
+
+    def get_neighbour_positions(self):
+        return [
+            (self.position[0] - 1, self.position[1]),
+            (self.position[0] + 1, self.position[1]),
+        ]
+
+    def __eq__(self, other):
+        return self.cell_state == other.cell_state and self.position == other.position
 
 
 class Game:
     def __init__(self, board) -> None:
         self.board = board
 
+    def calculate_number_of_neighbours(self, cell):
+        count = 0
+        neighbour_positions = cell.get_neighbour_positions()
+        for neighbour_position in neighbour_positions:
+            if neighbour_position in [cell.position for cell in self.board]:
+                count += 1
+        return count
+
     def play(self):
-        if len(self.board) > 2:
-            return (
-                [Cell(CellState.DEAD, self.board[0].position)]
-                + [Cell(CellState.ALIVE, cell.position) for cell in self.board[1:-1]]
-                + [Cell(CellState.DEAD, self.board[-1].position)]
+        next_generation = []
+        for cell in self.board:
+            cell_state = (
+                CellState.DEAD
+                if self.calculate_number_of_neighbours(cell) < 2
+                else CellState.ALIVE
             )
-        return [Cell(CellState.DEAD, cell.position) for cell in self.board]
+            next_generation.append(Cell(cell_state, cell.position))
+        return next_generation
