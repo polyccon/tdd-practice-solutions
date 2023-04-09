@@ -6,6 +6,9 @@ class CellState(Enum):
     ALIVE = 1
 
 
+POSITION_DELTA = [-1, 1]
+
+
 class Cell:
     def __init__(self, cell_state, position) -> None:
         self.cell_state = cell_state
@@ -13,8 +16,7 @@ class Cell:
 
     def get_neighbour_positions(self):
         return [
-            (self.position[0] - 1, self.position[1]),
-            (self.position[0] + 1, self.position[1]),
+            (self.position[0] + delta, self.position[1]) for delta in POSITION_DELTA
         ]
 
     def __eq__(self, other):
