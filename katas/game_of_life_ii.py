@@ -11,8 +11,10 @@ class Game:
         self.board = board
 
     def play(self):
-        if len(self.board) > 3:
-            return [CellState.DEAD, CellState.ALIVE, CellState.ALIVE, CellState.DEAD]
         if len(self.board) > 2:
-            return [CellState.DEAD, CellState.ALIVE, CellState.DEAD]
+            return (
+                [CellState.DEAD]
+                + [CellState.ALIVE for cell in self.board[1:-1]]
+                + [CellState.DEAD]
+            )
         return [CellState.DEAD for cell in self.board]
