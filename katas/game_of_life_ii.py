@@ -20,6 +20,9 @@ class Cell:
     def __eq__(self, other):
         return self.cell_state == other.cell_state and self.position == other.position
 
+    def evolve(self, number_of_neighbours):
+        return CellState.DEAD if number_of_neighbours < 2 else CellState.ALIVE
+
 
 class Game:
     def __init__(self, board) -> None:
@@ -36,10 +39,7 @@ class Game:
     def play(self):
         next_generation = []
         for cell in self.board:
-            cell_state = (
-                CellState.DEAD
-                if self.calculate_number_of_neighbours(cell) < 2
-                else CellState.ALIVE
-            )
+            number_of_neighbours = self.calculate_number_of_neighbours(cell)
+            cell_state = cell.evolve(number_of_neighbours)
             next_generation.append(Cell(cell_state, cell.position))
         return next_generation
