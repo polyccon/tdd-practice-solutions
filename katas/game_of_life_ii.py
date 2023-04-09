@@ -1,9 +1,17 @@
+from dataclasses import dataclass
 from enum import Enum
 
 
 class CellState(Enum):
     DEAD = 0
     ALIVE = 1
+
+
+@dataclass
+class Cell:
+    def __init__(self, cell_state, position) -> None:
+        self.cell_state = cell_state
+        self.position = position
 
 
 class Game:
@@ -13,8 +21,8 @@ class Game:
     def play(self):
         if len(self.board) > 2:
             return (
-                [CellState.DEAD]
-                + [CellState.ALIVE for cell in self.board[1:-1]]
-                + [CellState.DEAD]
+                [Cell(CellState.DEAD, self.board[0].position)]
+                + [Cell(CellState.ALIVE, cell.position) for cell in self.board[1:-1]]
+                + [Cell(CellState.DEAD, self.board[-1].position)]
             )
-        return [CellState.DEAD for cell in self.board]
+        return [Cell(CellState.DEAD, cell.position) for cell in self.board]
