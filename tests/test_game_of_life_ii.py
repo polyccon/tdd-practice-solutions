@@ -76,3 +76,22 @@ def test_cell_with_three_neighbours_in_a_column_lives():
         Cell(CellState.ALIVE, (0, 2)),
         Cell(CellState.DEAD, (0, 3)),
     ]
+
+
+def test_cell_with_three_neighbours_in_a_square_lives():
+    board = [
+        Cell(CellState.ALIVE, (0, 0)),
+        Cell(CellState.ALIVE, (1, 0)),
+        Cell(CellState.ALIVE, (0, 1)),
+        Cell(CellState.ALIVE, (1, 1)),
+    ]
+    game = Game(board)
+
+    game.play()
+
+    assert board == [
+        Cell(CellState.ALIVE, (0, 0)),
+        Cell(CellState.ALIVE, (1, 0)),
+        Cell(CellState.ALIVE, (0, 1)),
+        Cell(CellState.ALIVE, (1, 1)),
+    ]

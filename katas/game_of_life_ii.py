@@ -16,9 +16,14 @@ class Position:
         self.y = y
 
     def get_neighbour_positions(self):
-        return [Position((self.x + delta, self.y)) for delta in self.POSITION_DELTA] + [
-            Position((self.x, self.y + delta)) for delta in self.POSITION_DELTA
-        ]
+        return (
+            [Position((self.x + delta, self.y)) for delta in self.POSITION_DELTA]
+            + [Position((self.x, self.y + delta)) for delta in self.POSITION_DELTA]
+            + [
+                Position((self.x + delta, self.y + delta))
+                for delta in self.POSITION_DELTA
+            ]
+        )
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
