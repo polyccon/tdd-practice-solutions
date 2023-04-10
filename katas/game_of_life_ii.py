@@ -7,19 +7,18 @@ class CellState(Enum):
 
 
 class Position:
+    POSITION_DELTA = [-1, 1]
+
     def __init__(self, coordinates) -> None:
         (x, y) = coordinates
         self.x = x
         self.y = y
 
     def get_neighbour_positions(self):
-        return [(self.x + delta, self.y) for delta in POSITION_DELTA]
+        return [(self.x + delta, self.y) for delta in self.POSITION_DELTA]
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
-
-
-POSITION_DELTA = [-1, 1]
 
 
 class Cell:
@@ -34,7 +33,9 @@ class Cell:
         return self.cell_state == other.cell_state and self.position == other.position
 
     def evolve(self, number_of_neighbours):
-        return CellState.DEAD if number_of_neighbours < 2 else CellState.ALIVE
+        self.cell_state = (
+            CellState.DEAD if number_of_neighbours < 2 else CellState.ALIVE
+        )
 
 
 class Game:
@@ -52,9 +53,7 @@ class Game:
         return count
 
     def play(self):
-        next_generation = []
         for cell in self.board:
             number_of_neighbours = self.calculate_number_of_neighbours(cell)
-            cell_state = cell.evolve(number_of_neighbours)
-            next_generation.append(Cell(cell_state, (cell.position.x, cell.position.y)))
-        return next_generation
+            cell.evolve(number_of_neighbours)
+        return self.board
