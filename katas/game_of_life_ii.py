@@ -15,7 +15,7 @@ class Position:
         self.y = y
 
     def get_neighbour_positions(self):
-        return [(self.x + delta, self.y) for delta in self.POSITION_DELTA]
+        return [Position((self.x + delta, self.y)) for delta in self.POSITION_DELTA]
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
@@ -39,11 +39,8 @@ class Cell:
 
     def calculate_number_of_neighbours(self, board_cells):
         count = 0
-        neighbour_positions = self.get_neighbour_positions()
-        for neighbour_position in neighbour_positions:
-            if neighbour_position in [
-                (cell.position.x, cell.position.y) for cell in board_cells
-            ]:
+        for cell in board_cells:
+            if cell.position in self.get_neighbour_positions():
                 count += 1
         return count
 
