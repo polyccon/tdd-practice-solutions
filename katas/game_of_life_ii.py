@@ -56,4 +56,3 @@ class Game:
         for cell in self.board:
             number_of_neighbours = self.calculate_number_of_neighbours(cell)
             cell.evolve(number_of_neighbours)
-        return self.board

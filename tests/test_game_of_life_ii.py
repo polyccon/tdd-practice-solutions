@@ -6,18 +6,18 @@ def test_single_cell_dies():
     board = [Cell(CellState.ALIVE, (0, 0))]
     game = Game(board)
 
-    next_generation = game.play()
+    game.play()
 
-    assert next_generation == [Cell(CellState.DEAD, (0, 0))]
+    assert board == [Cell(CellState.DEAD, (0, 0))]
 
 
 def test_cell_with_one_neighbour_in_a_row_dies():
     board = [Cell(CellState.ALIVE, (0, 0)), Cell(CellState.ALIVE, (1, 0))]
     game = Game(board)
 
-    next_generation = game.play()
+    game.play()
 
-    assert next_generation == [
+    assert board == [
         Cell(CellState.DEAD, (0, 0)),
         Cell(CellState.DEAD, (1, 0)),
     ]
@@ -31,9 +31,9 @@ def test_cell_with_two_neighbours_in_a_row_lives():
     ]
     game = Game(board)
 
-    next_generation = game.play()
+    game.play()
 
-    assert next_generation == [
+    assert board == [
         Cell(CellState.DEAD, (0, 0)),
         Cell(CellState.ALIVE, (1, 0)),
         Cell(CellState.DEAD, (2, 0)),
@@ -49,9 +49,9 @@ def test_cell_with_three_neighbours_in_a_row_lives():
     ]
     game = Game(board)
 
-    next_generation = game.play()
+    game.play()
 
-    assert next_generation == [
+    assert board == [
         Cell(CellState.DEAD, (0, 0)),
         Cell(CellState.ALIVE, (1, 0)),
         Cell(CellState.ALIVE, (2, 0)),
