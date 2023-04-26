@@ -45,19 +45,27 @@ class Cell:
             CellState.DEAD if number_of_neighbours < 2 else CellState.ALIVE
         )
 
-    def calculate_number_of_neighbours(self, board_cells):
+
+class Board:
+    def __init__(self, cells) -> None:
+        self.cells = cells
+
+    def get_cells(self):
+        return self.cells
+
+    def calculate_number_of_neighbours(self, current_cell):
         count = 0
-        for cell in board_cells:
-            if cell.position in self.get_neighbour_positions():
+        for cell in self.cells:
+            if cell.position in current_cell.get_neighbour_positions():
                 count += 1
         return count
 
 
 class Game:
-    def __init__(self, board) -> None:
-        self.board = board
+    def __init__(self, cells) -> None:
+        self.board = Board(cells)
 
     def play(self):
-        for cell in self.board:
-            number_of_neighbours = cell.calculate_number_of_neighbours(self.board)
+        for cell in self.board.get_cells():
+            number_of_neighbours = self.board.calculate_number_of_neighbours(cell)
             cell.evolve(number_of_neighbours)
