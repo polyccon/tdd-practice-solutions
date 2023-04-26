@@ -53,7 +53,7 @@ class Board:
     def get_cells(self):
         return self.cells
 
-    def get_all_positions(self):
+    def get_all_cell_positions(self):
         return [cell.position for cell in self.cells]
 
     def calculate_number_of_neighbours(self, current_cell):
@@ -61,7 +61,7 @@ class Board:
             [
                 neighbour_position
                 for neighbour_position in current_cell.get_neighbour_positions()
-                if neighbour_position in self.get_all_positions()
+                if neighbour_position in self.get_all_cell_positions()
             ]
         )
 
