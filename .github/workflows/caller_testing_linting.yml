@@ -1,0 +1,10 @@
+name: Call Reusable Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-reusable-testing-linting:
+    uses: polyccon/github-action-reusable-workflows/.github/workflows/reusable-python-testing-linting.yml@main
+    with:
+      foo: "Demoing dynamically passing env variables"
