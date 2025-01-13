@@ -2,6 +2,14 @@ name: Call Reusable Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        required: false
+        description: Who to greet
+        options:
+          - monalisa
+          - aphrodite
 
 jobs:
   call-reusable-testing-linting:
