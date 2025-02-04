@@ -1,4 +1,3 @@
-import pytest
 from katas.game_of_life_ii import Game, Cell, CellState
 
 

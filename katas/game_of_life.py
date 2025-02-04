@@ -19,7 +19,7 @@ class Position:
         return self.x == other.x and self.y == other.y
 
     def _is_neighbour(self, other):
-        return self.x - other.x in [ -1, 1] or self.y - other.y in [ -1, 1]
+        return self.x - other.x in [-1, 1] or self.y - other.y in [-1, 1]
 
 
 class Board:
@@ -42,7 +42,7 @@ class Board:
 
 
 class Cell:
-    def __init__(self, cell_state, position)-> None:
+    def __init__(self, cell_state, position) -> None:
         self.cell_state = cell_state
         self.position = position
 
