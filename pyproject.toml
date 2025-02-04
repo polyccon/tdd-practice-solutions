@@ -1,2 +1,28 @@
+[project]
+name = 'tdd-practice-solutions'
+requires-python = ">=3.11.1"
+version = "1.0.0"
+
+[tool.setuptools]
+py-modules = []
+
 [tool.black]
-line-length = 88
+line-length = 120
+preview = true
+enable-unstable-feature = ['string_processing']
+# 'extend-exclude' excludes files or directories in addition to the defaults
+extend-exclude = '''
+^/(
+    \.git
+  | \.idea
+  | \.pytest_cache
+  | \.venv
+  | venv
+  | __pycache__
+  | ci-scripts
+  | \.coverage
+  | old
+  | build
+  | dist
+)
+'''

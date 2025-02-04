@@ -1,0 +1,18 @@
+[flake8]
+extend-ignore = E203, E741
+exclude =
+    .git,
+    .idea,
+    .pytest_cache,
+    .venv,
+    venv
+    __pycache__,
+    ci-scripts,
+    sandbox,
+    .coverage,
+    old,
+    build,
+    dist,
+    migrations
+max-complexity = 15
+max-line-length = 120
